@@ -33,6 +33,7 @@ import android.view.View;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.yesandroid.makeup.api.MakeItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +51,7 @@ import retrofit2.Response;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private final LinkedList<String> mWordList = new LinkedList<>();
+    private final LinkedList<MakeItem> mWordList = new LinkedList<>();
 
     private RecyclerView mRecyclerView;
     private MakeupListAdapter mAdapter;
@@ -106,8 +107,14 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject =new JSONObject(response.body().get(i).toString());
                       //  Log.d("finalres",jsonObject.getString("name"));
-                        mWordList.addLast(jsonObject.getString("name"));
 
+                        MakeItem makeItem=new MakeItem();
+                        makeItem.setName(jsonObject.getString("name"));
+                        makeItem.setUrl(jsonObject.getString("image_link"));
+                        makeItem.setType(jsonObject.getString("product_type"));
+                        makeItem.setDesc(jsonObject.getString("description"));
+                     //   mWordList.addLast(jsonObject.getString("name"));
+                        mWordList.add(makeItem);
                         mRecyclerView.setAdapter(mAdapter);
                         // Give the recycler view a default layout manager.
                         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

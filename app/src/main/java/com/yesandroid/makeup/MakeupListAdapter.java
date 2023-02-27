@@ -21,6 +21,7 @@ package com.yesandroid.makeup;
 
 
         import android.content.Context;
+        import android.content.Intent;
         import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -29,6 +30,9 @@ package com.yesandroid.makeup;
         import android.widget.TextView;
 
         import com.squareup.picasso.Picasso;
+        import com.yesandroid.makeup.api.MakeItem;
+        import com.yesandroid.makeup.second.MainActivity2;
+        import com.yesandroid.makeup.second.SingleClick;
 
         import java.util.LinkedList;
 
@@ -38,7 +42,7 @@ package com.yesandroid.makeup;
  */
 public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.MakeupListViewHolder> {
 
-    private final LinkedList<String> makeupList;
+    private final LinkedList<MakeItem> makeupList;
     private final LayoutInflater mInflater;
 
     class MakeupListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -70,17 +74,25 @@ public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.Ma
             int mPosition = getLayoutPosition();
 
             // Use that to access the affected item in makeupList.
-            String element = makeupList.get(mPosition);
+          //  String element = makeupList.get(mPosition);
+            SingleClick singleClick=SingleClick.getInstance();
+            singleClick.setMakeItem(makeupList.get(mPosition));
+
+            Intent intent = new Intent(view.getContext(), MainActivity2.class);
+
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            view.getContext().getApplicationContext().startActivity(intent);
             // Change the word in the makeupList.
 
-            makeupList.set(mPosition, "Clicked! " + element);
+         //   makeupList.set(mPosition, "Clicked! " + element);
             // Notify the adapter, that the data has changed so it can
             // update the RecyclerView to display the data.
             mAdapter.notifyDataSetChanged();
         }
     }
 
-    public MakeupListAdapter(Context context, LinkedList<String> wordList) {
+    public MakeupListAdapter(Context context, LinkedList<MakeItem> wordList) {
         mInflater = LayoutInflater.from(context);
         this.makeupList = wordList;
     }
@@ -127,11 +139,13 @@ public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.Ma
     public void onBindViewHolder(MakeupListViewHolder holder,
                                  int position) {
         // Retrieve the data for that position.
-        String mCurrent = makeupList.get(position);
+        String mCurrent = makeupList.get(position).getName();
+
         // Add the data to the view holder.
         holder.wordItemView.setText(mCurrent);
-        holder.desc.setText("test");
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(holder.makeupImageView);
+        holder.desc.setText(makeupList.get(position).getType());
+       // Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(holder.makeupImageView);
+        Picasso.get().load(makeupList.get(position).getUrl()).into(holder.makeupImageView);
     }
 
     /**
