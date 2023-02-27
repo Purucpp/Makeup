@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Get_Retrofit_Client {
 
 
-    public static final String Base_url="https://yesandroid.com/";
+    public static final String Base_url="http://makeup-api.herokuapp.com/";
 
     private static Retrofit retrofit = null;
 

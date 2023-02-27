@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface Get_Interface {
 
-    @GET("social/a.json")
+    @GET("api/v1/products.json?brand=maybelline")
     Call<JsonArray> getsocial();
 }
 

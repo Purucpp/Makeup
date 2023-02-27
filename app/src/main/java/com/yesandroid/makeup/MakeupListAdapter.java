@@ -25,7 +25,10 @@ package com.yesandroid.makeup;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.ImageView;
         import android.widget.TextView;
+
+        import com.squareup.picasso.Picasso;
 
         import java.util.LinkedList;
 
@@ -40,7 +43,9 @@ public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.Ma
 
     class MakeupListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView wordItemView;
-        final MakeupListAdapter mAdapter;
+        public final TextView desc;
+        public final ImageView makeupImageView;
+       public final MakeupListAdapter mAdapter;
 
         /**
          * Creates a new custom view holder to hold the view to display in
@@ -53,6 +58,8 @@ public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.Ma
         public MakeupListViewHolder(View itemView, MakeupListAdapter adapter) {
             super(itemView);
             wordItemView = itemView.findViewById(R.id.word);
+            desc = itemView.findViewById(R.id.desc);
+            makeupImageView=itemView.findViewById(R.id.image);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -123,6 +130,8 @@ public class MakeupListAdapter extends RecyclerView.Adapter<MakeupListAdapter.Ma
         String mCurrent = makeupList.get(position);
         // Add the data to the view holder.
         holder.wordItemView.setText(mCurrent);
+        holder.desc.setText("test");
+        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(holder.makeupImageView);
     }
 
     /**

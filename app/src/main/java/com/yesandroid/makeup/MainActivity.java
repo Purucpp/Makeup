@@ -32,6 +32,10 @@ import android.view.View;
 
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedList;
 
@@ -55,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRecyclerView = findViewById(R.id.recyclerview);
+        // Create an adapter and supply the data to be displayed.
+        mAdapter = new MakeupListAdapter(this, mWordList);
      //   Toolbar toolbar = findViewById(R.id.toolbar);
      //   setSupportActionBar(toolbar);
 
@@ -74,17 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Put initial data into the word list.
         for (int i = 0; i < 20; i++) {
-            mWordList.addLast("Word " + i);
+           // mWordList.addLast("Word " + i);
         }
 
-        // Create recycler view.
-        mRecyclerView = findViewById(R.id.recyclerview);
-        // Create an adapter and supply the data to be displayed.
-        mAdapter = new MakeupListAdapter(this, mWordList);
-        // Connect the adapter with the recycler view.
-        mRecyclerView.setAdapter(mAdapter);
-        // Give the recycler view a default layout manager.
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
 
@@ -99,6 +100,27 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("finalres",response.body().toString());
                 Log.d("finalres",response.body().get(0).toString());
 
+
+                for(int i=0;i<response.body().size();i++)
+                {
+                    try {
+                        JSONObject jsonObject =new JSONObject(response.body().get(i).toString());
+                      //  Log.d("finalres",jsonObject.getString("name"));
+                        mWordList.addLast(jsonObject.getString("name"));
+
+                        mRecyclerView.setAdapter(mAdapter);
+                        // Give the recycler view a default layout manager.
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+
+
             }
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
@@ -109,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // Create recycler view.
+
+        // Connect the adapter with the recycler view.
+
     }
 
     /**
@@ -117,5 +144,6 @@ public class MainActivity extends AppCompatActivity {
      * @param menu Menu to inflate.
      * @return Returns true if the menu inflated.
      */
+
 
 }
