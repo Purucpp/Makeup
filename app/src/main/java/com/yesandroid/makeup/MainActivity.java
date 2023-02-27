@@ -60,27 +60,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
         mAdapter = new MakeupListAdapter(this, mWordList);
-     //   Toolbar toolbar = findViewById(R.id.toolbar);
-     //   setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int wordListSize = mWordList.size();
-//                // Add a new word to the wordList.
-//                mWordList.addLast("+ Word " + wordListSize);
-//                // Notify the adapter, that the data has changed.
-//                mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
-//                // Scroll to the bottom.
-//                mRecyclerView.smoothScrollToPosition(wordListSize);
-//            }
-//        });
-
-        // Put initial data into the word list.
-        for (int i = 0; i < 20; i++) {
-           // mWordList.addLast("Word " + i);
-        }
 
 
 
@@ -130,23 +110,14 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("failed","failed");
                 Log.d("reason",t.getMessage());
-                //  t.setText("Failed :"+t.getMessage());
+
             }
         });
 
 
-        // Create recycler view.
-
-        // Connect the adapter with the recycler view.
 
     }
 
-    /**
-     * Inflates the menu, and adds items to the action bar if it is present.
-     *
-     * @param menu Menu to inflate.
-     * @return Returns true if the menu inflated.
-     */
 
 
 }
