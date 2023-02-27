@@ -44,11 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Implements a basic RecyclerView that displays a list of generated words.
- * - Clicking an item marks it as clicked.
- * - Clicking the fab button adds a new word to the list.
- */
+
 public class MainActivity extends AppCompatActivity {
 
     private final LinkedList<MakeItem> mWordList = new LinkedList<>();
